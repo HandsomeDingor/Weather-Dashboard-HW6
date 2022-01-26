@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+    <header class="bg-primary text-white text-center p-2">
+        <h1>Weather Dashboard</h1>
+    </header>
+    <div class="row">
+        <div class="col-md-3 m-3">
+
+            <h2 class="font-weight-bold col m-2">Search for a City:</h2>
+            <input class="rounded col form-control input-lg m-2" placeholder="New York">
+            <button class="btn btn-primary col m-2" type="submit" id="search">Search</button>
+            <button class="btn btn-primary col m-2" type="button">Clear history</button>
+
+
+            <form id="history">
+                <button class="rounded col  m-2" >New York</button>
+                <button class="rounded col  m-2" >New York</button>
+                <button class="rounded col  m-2" >New York</button>
+
+
+            </form>
+
+        </div>
+        <div class="col-md-8 m-3">
+            <div class="border border-dark pl-1">
+                <h1>New York<span>(01/24/2022)</span><img>a</img></h1>
+                <P id="nowTemp">Temp:</P>
+                <P id="nowWind">Wind:</P>
+                <p id="nowHumidity">Humidity:</p>
+                <p id="nowIndex">UV Index:</p>
+            </div>
+
+            <div class="m-3">
+                <h2 class="font-weight-bold">5-Day Forecast</h1>
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-lg-2 forecast bg-primary text-white m-1">
+                            <p>01/25/2022</p>
+                            <img></img>
+                            <P>Temp:</P>
+                            <P>Wind:</P> 
+                            <p>Humidity:</p>
+
+                        </div>
+                        <div class="col-lg-2 forecast bg-primary text-white m-1 ">
+                            <p>01/25/2022</p>
+                            <img></img>
+                            <P>Temp:</P>
+                            <P>Wind:</P>
+                            <p>Humidity:</p>
+
+                        </div>
+                        <div class="col-lg-2 forecast bg-primary text-white m-1">
+                            <p>01/25/2022</p>
+                            <img></img>
+                            <P>Temp:</P>
+                            <P>Wind:</P>
+                            <p>Humidity:</p>
+ 
+                        </div>
+                        <div class="col-lg-2 forecast bg-primary text-white m-1">
+                            <p>01/25/2022</p>
+                            <img></img>
+                            <P>Temp:</P>
+                            <P>Wind:</P>
+                            <p>Humidity:</p>
+ 
+                        </div>
+                        <div class="col-lg-2 forecast bg-primary text-white m-1">
+                            <p>01/25/2022</p>
+                            <img></img>
+                            <P>Temp:</P>
+                            <P>Wind:</P>
+                            <p>Humidity:</p>
+
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
