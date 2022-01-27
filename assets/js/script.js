@@ -1,5 +1,5 @@
 var APIkey = "350d6ec5fe090d500d1f7a39a9d83803";
-var cityname = "new york"
+var cityname = ""
 
 
 var currentCityEl = document.getElementById("currentCity")
@@ -58,7 +58,7 @@ function getNowCity() {
             nowTempEl.textContent = "Temp: " + data.main.temp + " °F"
             nowWindEl.textContent = "wind: " + data.wind.speed + " MPH"
             nowHumidityEl.textContent = "Humidity: " + data.main.humidity + " %"
-            
+
 
             var uvUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=" + APIkey
             fetch(uvUrl)
@@ -69,17 +69,17 @@ function getNowCity() {
                 }).then(function (data) {
 
                     console.log(uvUrl)
-                    
+
                     nowIndexNumberEl.textContent = data.current.uvi
-                   
+
                     console.log(nowIndexNumberEl)
                     if (data.current.uvi <= 2) {
-                        nowIndexNumberEl.setAttribute("class","favorable")
+                        nowIndexNumberEl.setAttribute("class", "favorable")
                     } else if (data.current.uvi > 2 && data.current.uvi <= 8) {
-                        nowIndexNumberEl.setAttribute("class","moderate")
+                        nowIndexNumberEl.setAttribute("class", "moderate")
                     }
                     else if (data.current.uvi > 8) {
-                        nowIndexNumberEl.setAttribute("class","severe")
+                        nowIndexNumberEl.setAttribute("class", "severe")
                     };
 
                     console.log(nowIndex)
@@ -90,7 +90,6 @@ function getNowCity() {
         })
 };
 
-getNowCity()
 
 
 
@@ -159,20 +158,46 @@ function get5DaysCity() {
         })
 };
 
-get5DaysCity()
+
 
 
 
 var searchButtonEl = document.getElementById("search")
 var inputCityEl = document.getElementById("inputCity")
 
-function searchCity(){
+var historyEl = document.getElementById("history")
+
+function searchCity() {
+    
+    // display the container search city current and 5 days weather
+    containerEl.setAttribute("class","col-md-8 m-3")
+
+
     console.log("click")
     cityname = inputCityEl.value
+    const newButton = document.createElement("button");
+    newButton.setAttribute("class", "rounded col  m-2")
+    newButton.setAttribute("searchCity",cityname)
+    newButton.textContent = inputCityEl.value
+    historyEl.appendChild(newButton);
     console.log(inputCityEl.value)
     getNowCity()
     get5DaysCity()
 
 }
 
-searchButtonEl.addEventListener("click",searchCity)
+var pastSearchHandler = function (event) {
+    var city = event.target.getAttribute("searchCity")
+    if (city) {
+        cityname = city
+        getNowCity()
+        get5DaysCity()
+    }
+}
+
+// hide container 
+var containerEl = document.getElementById("container")
+
+
+searchButtonEl.addEventListener("click", searchCity)
+historyEl.addEventListener("click",pastSearchHandler)
