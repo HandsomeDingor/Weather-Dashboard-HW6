@@ -9,37 +9,37 @@ var nowTempEl = document.getElementById("nowTemp")
 var nowWindEl = document.getElementById("nowWind")
 var nowHumidityEl = document.getElementById("nowHumidity")
 var nowIndexEl = document.getElementById("nowIndex")
+var nowIndexNumberEl = document.getElementById("nowIndexNumber")
 
-
-var day1El =  document.getElementById("day1")
+var day1El = document.getElementById("day1")
 var day1ImgEl = document.getElementById("day1Img")
-var day1TempEl =  document.getElementById("day1Temp")
-var day1WindEL =  document.getElementById("day1Wind")
-var day1HumidityEl =  document.getElementById("day1Humidity")
+var day1TempEl = document.getElementById("day1Temp")
+var day1WindEL = document.getElementById("day1Wind")
+var day1HumidityEl = document.getElementById("day1Humidity")
 
-var day2El =  document.getElementById("day2")
+var day2El = document.getElementById("day2")
 var day2ImgEl = document.getElementById("day2Img")
-var day2TempEl =  document.getElementById("day2Temp")
-var day2WindEL =  document.getElementById("day2Wind")
-var day2HumidityEl =  document.getElementById("day2Humidity")
+var day2TempEl = document.getElementById("day2Temp")
+var day2WindEL = document.getElementById("day2Wind")
+var day2HumidityEl = document.getElementById("day2Humidity")
 
-var day3El =  document.getElementById("day3")
+var day3El = document.getElementById("day3")
 var day3ImgEl = document.getElementById("day3Img")
-var day3TempEl =  document.getElementById("day3Temp")
-var day3WindEL =  document.getElementById("day3Wind")
-var day3HumidityEl =  document.getElementById("day3Humidity")
+var day3TempEl = document.getElementById("day3Temp")
+var day3WindEL = document.getElementById("day3Wind")
+var day3HumidityEl = document.getElementById("day3Humidity")
 
-var day4El =  document.getElementById("day4")
+var day4El = document.getElementById("day4")
 var day4ImgEl = document.getElementById("day4Img")
-var day4TempEl =  document.getElementById("day4Temp")
-var day4WindEL =  document.getElementById("day4Wind")
-var day4HumidityEl =  document.getElementById("day4Humidity")
+var day4TempEl = document.getElementById("day4Temp")
+var day4WindEL = document.getElementById("day4Wind")
+var day4HumidityEl = document.getElementById("day4Humidity")
 
-var day5El =  document.getElementById("day5")
+var day5El = document.getElementById("day5")
 var day5ImgEl = document.getElementById("day5Img")
-var day5TempEl =  document.getElementById("day5Temp")
-var day5WindEL =  document.getElementById("day5Wind")
-var day5HumidityEl =  document.getElementById("day5Humidity")
+var day5TempEl = document.getElementById("day5Temp")
+var day5WindEL = document.getElementById("day5Wind")
+var day5HumidityEl = document.getElementById("day5Humidity")
 
 
 function getNowCity() {
@@ -53,13 +53,14 @@ function getNowCity() {
         }).then(function (data) {
             console.log(data)
             currentCityEl.textContent = data.name
-            currentDayEl.textContent = moment().format('YYYY-MM-D' );
+            currentDayEl.textContent = moment().format('YYYY-MM-D');
             currentWeatherIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png")
             nowTempEl.textContent = "Temp: " + data.main.temp + " °F"
             nowWindEl.textContent = "wind: " + data.wind.speed + " MPH"
             nowHumidityEl.textContent = "Humidity: " + data.main.humidity + " %"
+            
 
-            var uvUrl = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIkey + "&lat=" + data.coord.lat + "&lon=" + data.coord.lon
+            var uvUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=" + APIkey
             fetch(uvUrl)
                 .then(function (response) {
 
@@ -68,7 +69,21 @@ function getNowCity() {
                 }).then(function (data) {
 
                     console.log(uvUrl)
-                    nowIndexEl.textContent = "UV Index: " + data.value
+                    
+                    nowIndexNumberEl.textContent = data.current.uvi
+                   
+                    console.log(nowIndexNumberEl)
+                    if (data.current.uvi <= 2) {
+                        nowIndexNumberEl.setAttribute("class","favorable")
+                    } else if (data.current.uvi > 2 && data.current.uvi <= 8) {
+                        nowIndexNumberEl.setAttribute("class","moderate")
+                    }
+                    else if (data.current.uvi > 8) {
+                        nowIndexNumberEl.setAttribute("class","severe")
+                    };
+
+                    console.log(nowIndex)
+
                 }
                 )
 
@@ -103,7 +118,7 @@ function get5DaysCity() {
                         temp: forecastData.list[i].main.temp,
                         wind: forecastData.list[i].wind.speed,
                         humidity: forecastData.list[i].main.humidity,
-                        
+
                     })
                 }
 
@@ -145,3 +160,19 @@ function get5DaysCity() {
 };
 
 get5DaysCity()
+
+
+
+var searchButtonEl = document.getElementById("search")
+var inputCityEl = document.getElementById("inputCity")
+
+function searchCity(){
+    console.log("click")
+    cityname = inputCityEl.value
+    console.log(inputCityEl.value)
+    getNowCity()
+    get5DaysCity()
+
+}
+
+searchButtonEl.addEventListener("click",searchCity)
