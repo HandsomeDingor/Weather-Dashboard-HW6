@@ -172,7 +172,6 @@ function searchCity() {
     // display the container search city current and 5 days weather
     containerEl.setAttribute("class","col-md-8 m-3")
 
-
     console.log("click")
     cityname = inputCityEl.value
     const newButton = document.createElement("button");
@@ -181,6 +180,7 @@ function searchCity() {
     newButton.textContent = inputCityEl.value
     historyEl.appendChild(newButton);
     console.log(inputCityEl.value)
+    
     getNowCity()
     get5DaysCity()
 
