@@ -1,6 +1,14 @@
 var APIkey = "350d6ec5fe090d500d1f7a39a9d83803";
 var cityname = ""
 
+var newButton = document.createElement("button");
+var historyEl = document.getElementById("history")
+var clearEl = document.getElementById("clear")
+
+
+
+// hide container 
+var containerEl = document.getElementById("container")
 
 var currentCityEl = document.getElementById("currentCity")
 var currentDayEl = document.getElementById("currentDay")
@@ -45,6 +53,7 @@ var day5HumidityEl = document.getElementById("day5Humidity")
 function getNowCity() {
     var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityname + "&units=imperial&appid=" + APIkey;
     console.log(weatherUrl)
+    
     fetch(weatherUrl)
         .then(function (response) {
 
@@ -52,6 +61,8 @@ function getNowCity() {
 
         }).then(function (data) {
             console.log(data)
+
+
             currentCityEl.textContent = data.name
             currentDayEl.textContent = moment().format('YYYY-MM-D');
             currentWeatherIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png")
@@ -88,6 +99,7 @@ function getNowCity() {
                 )
 
         })
+   
 };
 
 
@@ -101,6 +113,7 @@ function getNowCity() {
 function get5DaysCity() {
     var weather5Url = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityname + "&units=imperial&appid=" + APIkey;
     console.log(weather5Url)
+    
     fetch(weather5Url)
         .then(function (response) {
 
@@ -122,6 +135,7 @@ function get5DaysCity() {
                 }
 
             } console.log(ourForecastObject)
+
 
             day1El.textContent = ourForecastObject[0].date
             day1ImgEl.setAttribute("src", "http://openweathermap.org/img/wn/" + ourForecastObject[0].icon + "@2x.png")
@@ -165,39 +179,97 @@ function get5DaysCity() {
 var searchButtonEl = document.getElementById("search")
 var inputCityEl = document.getElementById("inputCity")
 
-var historyEl = document.getElementById("history")
+
+let saveSearch = JSON.parse(localStorage.getItem("city")) || [];
+
 
 function searchCity() {
-    
+    if (inputCityEl.value == "") {
+
+    }
     // display the container search city current and 5 days weather
-    containerEl.setAttribute("class","col-md-8 m-3")
+    containerEl.setAttribute("class", "col-md-8 m-3")
 
     console.log("click")
     cityname = inputCityEl.value
-    const newButton = document.createElement("button");
+   
+    newButton = document.createElement("button");
     newButton.setAttribute("class", "rounded col  m-2")
-    newButton.setAttribute("searchCity",cityname)
+    newButton.setAttribute("searchCity", cityname)
+    newButton.setAttribute("type","button")
     newButton.textContent = inputCityEl.value
     historyEl.appendChild(newButton);
     console.log(inputCityEl.value)
     
+    
+    saveSearch.push(inputCityEl.value)
+
+    localStorage.setItem("city",JSON.stringify(saveSearch))
+   
+  
+
+    
+
+
+
     getNowCity()
     get5DaysCity()
 
 }
 
-var pastSearchHandler = function (event) {
-    var city = event.target.getAttribute("searchCity")
-    if (city) {
-        cityname = city
-        getNowCity()
-        get5DaysCity()
+
+
+
+//load local storage
+function LoadHistory(){
+    if(saveSearch != null){
+        
+        for (var i=0; i<saveSearch.length; i++){
+        newButton = document.createElement("button");
+        newButton.setAttribute("class", "rounded col  m-2")
+        newButton.setAttribute("searchCity", saveSearch[i])
+        newButton.setAttribute("type","button")
+        newButton.textContent = saveSearch[i]
+        historyEl.appendChild(newButton);
+        }
     }
+
+
+}
+LoadHistory()
+
+
+function clearHistory(){
+
+    localStorage.clear()
+    console.log("clear")
+    historyEl.setAttribute("class", "hide")
+    containerEl.setAttribute("class", "col-md-8 m-3 hide")
+
 }
 
-// hide container 
-var containerEl = document.getElementById("container")
+
+function pastSearchHandler(event) {
+
+    containerEl.setAttribute("class", "col-md-8 m-3")
+    var city = event.target.getAttribute("searchCity")
+    console.log(city)
+
+    cityname=city
+
+    getNowCity()
+
+    get5DaysCity()
+
+}
+
+
 
 
 searchButtonEl.addEventListener("click", searchCity)
-historyEl.addEventListener("click",pastSearchHandler)
+
+clearEl.addEventListener("click", clearHistory)
+
+
+historyEl.addEventListener("click", pastSearchHandler)
+
