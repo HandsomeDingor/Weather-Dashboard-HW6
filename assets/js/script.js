@@ -1,7 +1,10 @@
 var APIkey = "350d6ec5fe090d500d1f7a39a9d83803";
 var cityname = ""
 
-var newButton = document.createElement("button");
+
+
+var leftContainerEl = document.getElementById("leftCon")
+var historyDivEl = document.getElementById("historyDiv")
 var historyEl = document.getElementById("history")
 var clearEl = document.getElementById("clear")
 
@@ -183,22 +186,26 @@ var inputCityEl = document.getElementById("inputCity")
 let saveSearch = JSON.parse(localStorage.getItem("city")) || [];
 
 
+
 function searchCity() {
     if (inputCityEl.value == "") {
-
+        return;
     }
     // display the container search city current and 5 days weather
     containerEl.setAttribute("class", "col-md-8 m-3")
-
+    historyEl.setAttribute("class", "")
     console.log("click")
     cityname = inputCityEl.value
    
+   
+    
     newButton = document.createElement("button");
     newButton.setAttribute("class", "rounded col  m-2")
     newButton.setAttribute("searchCity", cityname)
     newButton.setAttribute("type","button")
     newButton.textContent = inputCityEl.value
-    historyEl.appendChild(newButton);
+   
+    historyDivEl.appendChild(newButton);
     console.log(inputCityEl.value)
     
     
@@ -242,6 +249,14 @@ LoadHistory()
 function clearHistory(){
 
     localStorage.clear()
+    saveSearch=[];
+    historyEl.removeChild(historyDivEl)
+
+    historyDivEl= document.createElement("div")
+
+    historyDivEl.setAttribute("id","historyDiv")
+    historyEl.appendChild(historyDivEl)
+   
     console.log("clear")
     historyEl.setAttribute("class", "hide")
     containerEl.setAttribute("class", "col-md-8 m-3 hide")
