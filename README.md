@@ -4,8 +4,7 @@
 
 
 ## GitHub LIVE URL :
-https://handsomedingor.github.io/homework6/
-
+https://handsomedingor.github.io/Weather-Dashboard-HW6/
 
 ## My Task
 Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
@@ -39,6 +38,7 @@ THEN I am again presented with current and future conditions for that city
 ```
 
 ## The following image demonstrates the application functionality:
+![hw6](https://user-images.githubusercontent.com/94802639/151691358-834fba4c-3e62-4184-addc-5d1da4476ac9.gif)
 
 
 ## Built with
