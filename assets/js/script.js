@@ -211,7 +211,7 @@ function searchCity() {
    
    
     // creat container for history selection
-    newButton = document.createElement("button");
+    var newButton = document.createElement("button");
     newButton.setAttribute("class", "rounded col  m-2")
     newButton.setAttribute("searchCity", cityname)
     newButton.setAttribute("type","button")
@@ -244,12 +244,12 @@ function LoadHistory(){
     if(saveSearch != null){
         
         for (var i=0; i<saveSearch.length; i++){
-        newButton = document.createElement("button");
+        var newButton = document.createElement("button");
         newButton.setAttribute("class", "rounded col  m-2")
         newButton.setAttribute("searchCity", saveSearch[i])
         newButton.setAttribute("type","button")
         newButton.textContent = saveSearch[i]
-        historyEl.appendChild(newButton);
+        historyDivEl.append(newButton);
         }
     }
 
@@ -269,7 +269,7 @@ function clearHistory(){
     historyDivEl= document.createElement("div")
 
     historyDivEl.setAttribute("id","historyDiv")
-    historyEl.appendChild(historyDivEl)
+    historyEl.append(historyDivEl)
    
     console.log("clear")
     historyEl.setAttribute("class", "hide")
