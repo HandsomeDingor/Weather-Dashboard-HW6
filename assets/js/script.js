@@ -65,7 +65,7 @@ let saveSearch = JSON.parse(localStorage.getItem("city")) || [];
 
 
 function getNowCity() {
-    OpenWeather Open Api
+    //OpenWeather Open Api
     var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityname + "&units=imperial&appid=" + APIkey;
     
     console.log(weatherUrl)
