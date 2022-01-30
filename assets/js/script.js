@@ -1,4 +1,5 @@
-var APIkey = "350d6ec5fe090d500d1f7a39a9d83803";
+// set value
+var APIkey = "462296c16e5138d210f6af2dc8b63480";
 var cityname = ""
 
 
@@ -51,6 +52,14 @@ var day5ImgEl = document.getElementById("day5Img")
 var day5TempEl = document.getElementById("day5Temp")
 var day5WindEL = document.getElementById("day5Wind")
 var day5HumidityEl = document.getElementById("day5Humidity")
+
+
+
+var searchButtonEl = document.getElementById("search")
+var inputCityEl = document.getElementById("inputCity")
+
+
+let saveSearch = JSON.parse(localStorage.getItem("city")) || [];
 
 
 function getNowCity() {
@@ -125,8 +134,12 @@ function get5DaysCity() {
         }).then(function (forecastData) {
             var ourForecastObject = [];
             console.log(forecastData)
+
+            // only show 5 days weather
             for (var i = 0; i < forecastData.list.length; i++) {
+                // there are 40 interval so %8 to get only 5days
                 if (i % 8 === 0) {
+                    //push in array
                     ourForecastObject.push({
                         date: forecastData.list[i].dt_txt.split(" ")[0],
                         icon: forecastData.list[i].weather[0].icon,
@@ -139,36 +152,36 @@ function get5DaysCity() {
 
             } console.log(ourForecastObject)
 
-
+            // display each days value ------ can use for loop to less code (lazy)
             day1El.textContent = ourForecastObject[0].date
             day1ImgEl.setAttribute("src", "http://openweathermap.org/img/wn/" + ourForecastObject[0].icon + "@2x.png")
-            day1TempEl.textContent = "Temp: " + ourForecastObject[0].temp
-            day1WindEL.textContent = "Wind: " + ourForecastObject[0].wind
-            day1HumidityEl.textContent = "Humidity: " + ourForecastObject[0].humidity
+            day1TempEl.textContent = "Temp: " + ourForecastObject[0].temp + " °F"
+            day1WindEL.textContent = "Wind: " + ourForecastObject[0].wind + " MPH"
+            day1HumidityEl.textContent = "Humidity: " + ourForecastObject[0].humidity + " %"
 
             day2El.textContent = ourForecastObject[1].date
             day2ImgEl.setAttribute("src", "http://openweathermap.org/img/wn/" + ourForecastObject[1].icon + "@2x.png")
-            day2TempEl.textContent = "Temp: " + ourForecastObject[1].temp
-            day2WindEL.textContent = "Wind: " + ourForecastObject[1].wind
-            day2HumidityEl.textContent = "Humidity: " + ourForecastObject[1].humidity
+            day2TempEl.textContent = "Temp: " + ourForecastObject[1].temp + " °F"
+            day2WindEL.textContent = "Wind: " + ourForecastObject[1].wind + " MPH"
+            day2HumidityEl.textContent = "Humidity: " + ourForecastObject[1].humidity + " %"
 
             day3El.textContent = ourForecastObject[2].date
             day3ImgEl.setAttribute("src", "http://openweathermap.org/img/wn/" + ourForecastObject[2].icon + "@2x.png")
-            day3TempEl.textContent = "Temp: " + ourForecastObject[2].temp
-            day3WindEL.textContent = "Wind: " + ourForecastObject[2].wind
-            day3HumidityEl.textContent = "Humidity: " + ourForecastObject[2].humidity
+            day3TempEl.textContent = "Temp: " + ourForecastObject[2].temp + " °F"
+            day3WindEL.textContent = "Wind: " + ourForecastObject[2].wind + " MPH"
+            day3HumidityEl.textContent = "Humidity: " + ourForecastObject[2].humidity + " %"
 
             day4El.textContent = ourForecastObject[3].date
             day4ImgEl.setAttribute("src", "http://openweathermap.org/img/wn/" + ourForecastObject[3].icon + "@2x.png")
-            day4TempEl.textContent = "Temp: " + ourForecastObject[3].temp
-            day4WindEL.textContent = "Wind: " + ourForecastObject[3].wind
-            day4HumidityEl.textContent = "Humidity: " + ourForecastObject[3].humidity
+            day4TempEl.textContent = "Temp: " + ourForecastObject[3].temp + " °F"
+            day4WindEL.textContent = "Wind: " + ourForecastObject[3].wind + " MPH"
+            day4HumidityEl.textContent = "Humidity: " + ourForecastObject[3].humidity + " %"
 
             day5El.textContent = ourForecastObject[4].date
             day5ImgEl.setAttribute("src", "http://openweathermap.org/img/wn/" + ourForecastObject[4].icon + "@2x.png")
-            day5TempEl.textContent = "Temp: " + ourForecastObject[4].temp
-            day5WindEL.textContent = "Wind: " + ourForecastObject[4].wind
-            day5HumidityEl.textContent = "Humidity: " + ourForecastObject[4].humidity
+            day5TempEl.textContent = "Temp: " + ourForecastObject[4].temp + " °F"
+            day5WindEL.textContent = "Wind: " + ourForecastObject[4].wind + " MPH"
+            day5HumidityEl.textContent = "Humidity: " + ourForecastObject[4].humidity + " %"
 
 
 
@@ -179,15 +192,10 @@ function get5DaysCity() {
 
 
 
-var searchButtonEl = document.getElementById("search")
-var inputCityEl = document.getElementById("inputCity")
 
-
-let saveSearch = JSON.parse(localStorage.getItem("city")) || [];
-
-
-
+// getting input value
 function searchCity() {
+    // check if empty value stop it
     if (inputCityEl.value == "") {
         return;
     }
@@ -218,7 +226,7 @@ function searchCity() {
     
 
 
-
+    
     getNowCity()
     get5DaysCity()
 
@@ -227,7 +235,7 @@ function searchCity() {
 
 
 
-//load local storage
+//load local storage and display on the left container
 function LoadHistory(){
     if(saveSearch != null){
         
@@ -243,9 +251,11 @@ function LoadHistory(){
 
 
 }
-LoadHistory()
 
 
+
+
+//clear local storage 
 function clearHistory(){
 
     localStorage.clear()
@@ -270,17 +280,25 @@ function pastSearchHandler(event) {
     var city = event.target.getAttribute("searchCity")
     console.log(city)
 
-    cityname=city
+    if(city === null)  {
+        return;
+    } else {
+
+
+    cityname=city 
 
     getNowCity()
 
-    get5DaysCity()
+    get5DaysCity();
+
+}
 
 }
 
 
 
 
+// add click event
 searchButtonEl.addEventListener("click", searchCity)
 
 clearEl.addEventListener("click", clearHistory)
@@ -288,3 +306,6 @@ clearEl.addEventListener("click", clearHistory)
 
 historyEl.addEventListener("click", pastSearchHandler)
 
+
+// load Search history first
+LoadHistory()
