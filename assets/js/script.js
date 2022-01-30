@@ -62,8 +62,12 @@ var inputCityEl = document.getElementById("inputCity")
 let saveSearch = JSON.parse(localStorage.getItem("city")) || [];
 
 
+
+
 function getNowCity() {
+    OpenWeather Open Api
     var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityname + "&units=imperial&appid=" + APIkey;
+    
     console.log(weatherUrl)
     
     fetch(weatherUrl)
@@ -206,7 +210,7 @@ function searchCity() {
     cityname = inputCityEl.value
    
    
-    
+    // creat container for history selection
     newButton = document.createElement("button");
     newButton.setAttribute("class", "rounded col  m-2")
     newButton.setAttribute("searchCity", cityname)
@@ -280,11 +284,13 @@ function pastSearchHandler(event) {
     var city = event.target.getAttribute("searchCity")
     console.log(city)
 
+    // if select the GAP, stop the function
     if(city === null)  {
         return;
     } else {
 
-
+    
+    // call function
     cityname=city 
 
     getNowCity()
