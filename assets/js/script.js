@@ -66,7 +66,7 @@ let saveSearch = JSON.parse(localStorage.getItem("city")) || [];
 
 function getNowCity() {
     //OpenWeather Open Api
-    var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityname + "&units=imperial&appid=" + APIkey;
+    var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityname + "&appid=" + APIkey;
     
     console.log(weatherUrl)
     
@@ -127,7 +127,7 @@ function getNowCity() {
 
 
 function get5DaysCity() {
-    var weather5Url = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityname + "&units=imperial&appid=" + APIkey;
+    var weather5Url = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityname + "&appid=" + APIkey;
     console.log(weather5Url)
     
     fetch(weather5Url)
